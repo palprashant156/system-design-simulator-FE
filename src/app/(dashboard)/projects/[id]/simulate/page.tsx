@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Topbar } from '../../../../../components/layout/Topbar';
 import { SimulationPanel } from '../../../../../components/simulation/SimulationPanel';
@@ -10,6 +10,8 @@ import { RealTimeChart } from '../../../../../components/simulation/RealTimeChar
 import { FlowCanvas } from '../../../../../components/canvas/FlowCanvas';
 import { useProject } from '../../../../../hooks/useProject';
 import { useSimulation } from '../../../../../hooks/useSimulation';
+import { useDiagram } from '../../../../../hooks/useDiagram';
+import { useCanvasStore } from '../../../../../stores/useCanvasStore';
 import { useSimulationStore } from '../../../../../stores/useSimulationStore';
 import { Activity, Zap, ShieldAlert, Clock } from 'lucide-react';
 
@@ -18,8 +20,38 @@ export default function SimulationWorkbenchPage() {
   const projectId = params?.id as string;
 
   const { data: project } = useProject(projectId);
+  const { data: diagram } = useDiagram(projectId);
   const { runSimulation, isStarting } = useSimulation(projectId);
   const { liveMetrics } = useSimulationStore();
+  const { setNodes, setEdges } = useCanvasStore();
+
+  // Populate canvas when diagram loads from server
+  useEffect(() => {
+    if (diagram) {
+      if (diagram.nodes && Array.isArray(diagram.nodes)) {
+        setNodes(
+          diagram.nodes.map((n: any) => ({
+            id: n.id,
+            type: n.type,
+            position: { x: n.positionX, y: n.positionY },
+            data: { label: n.label, type: n.type, ...(n.data || {}) },
+          })),
+        );
+      }
+      if (diagram.edges && Array.isArray(diagram.edges)) {
+        setEdges(
+          diagram.edges.map((e: any) => ({
+            id: e.id,
+            source: e.source,
+            target: e.target,
+            label: e.label || undefined,
+            type: 'animatedEdge',
+            animated: true,
+          })),
+        );
+      }
+    }
+  }, [diagram, setNodes, setEdges]);
 
   const metricsList = Object.values(liveMetrics);
   const bottlenecks = metricsList.filter((m) => m.isBottleneck);

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { useAuthStore } from '../stores/useAuthStore';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -29,6 +30,11 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    const isAuthRoute = error.config?.url?.includes('/auth/');
+    if (error.response?.status === 401 && !isAuthRoute && typeof window !== 'undefined') {
+      useAuthStore.getState().logout();
+      window.location.href = '/login';
+    }
     const message = error.response?.data?.message || error.message || 'An error occurred';
     return Promise.reject(new Error(message));
   },

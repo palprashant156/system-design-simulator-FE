@@ -71,8 +71,13 @@ export default function CanvasEditorPage() {
     });
   };
 
-  const handleRunSimulation = () => {
-    router.push(`/projects/${projectId}/simulate`);
+  const handleRunSimulation = async () => {
+    try {
+      await handleSave();
+      router.push(`/projects/${projectId}/simulate`);
+    } catch (err) {
+      console.error('Failed to save diagram before simulation:', err);
+    }
   };
 
   return (
