@@ -1,19 +1,19 @@
-import axios from 'axios';
-import { useAuthStore } from '../stores/useAuthStore';
+import axios from "axios";
+import { useAuthStore } from "../stores/useAuthStore";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 // Attach JWT access token if available in localStorage/session
 api.interceptors.request.use((config) => {
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('accessToken');
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -30,12 +30,17 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const isAuthRoute = error.config?.url?.includes('/auth/');
-    if (error.response?.status === 401 && !isAuthRoute && typeof window !== 'undefined') {
+    const isAuthRoute = error.config?.url?.includes("/auth/");
+    if (
+      error.response?.status === 401 &&
+      !isAuthRoute &&
+      typeof window !== "undefined"
+    ) {
       useAuthStore.getState().logout();
-      window.location.href = '/login';
+      window.location.href = "/login";
     }
-    const message = error.response?.data?.message || error.message || 'An error occurred';
+    const message =
+      error.response?.data?.message || error.message || "An error occurred";
     return Promise.reject(new Error(message));
   },
 );

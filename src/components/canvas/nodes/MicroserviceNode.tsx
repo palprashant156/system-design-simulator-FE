@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { NodeProps } from 'reactflow';
-import { Cpu } from 'lucide-react';
-import { BaseCustomNode } from './BaseCustomNode';
-import { CustomNodeData } from '../../../types/canvas';
+import React from "react";
+import { NodeProps } from "reactflow";
+import { Cpu } from "lucide-react";
+import { BaseCustomNode } from "./BaseCustomNode";
+import { CustomNodeData } from "../../../types/canvas";
 
-export const MicroserviceNode: React.FC<NodeProps<CustomNodeData>> = (props) => {
+export const MicroserviceNode: React.FC<NodeProps<CustomNodeData>> = (
+  props,
+) => {
   return (
     <BaseCustomNode
       {...props}

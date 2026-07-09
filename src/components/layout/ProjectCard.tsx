@@ -1,21 +1,27 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { Cpu, ArrowRight, Trash2, Clock } from 'lucide-react';
-import { Project } from '../../types/api';
+import React from "react";
+import Link from "next/link";
+import { Cpu, ArrowRight, Trash2, Clock } from "lucide-react";
+import { Project } from "../../types/api";
 
 interface ProjectCardProps {
   project: Project;
   onDelete?: (id: string) => void;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onDelete }) => {
-  const formattedDate = new Date(project.updatedAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+export const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  onDelete,
+}) => {
+  const formattedDate = new Date(project.updatedAt).toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    },
+  );
 
   return (
     <div className="group relative bg-slate-900/60 backdrop-blur-md border border-slate-800 hover:border-cyan-500/40 rounded-xl p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/5 flex flex-col justify-between">
@@ -42,7 +48,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onDelete }) =
           {project.name}
         </h3>
         <p className="text-xs text-slate-400 line-clamp-2 mb-4">
-          {project.description || 'No description provided.'}
+          {project.description || "No description provided."}
         </p>
       </div>
 

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -8,20 +8,20 @@ import ReactFlow, {
   ReactFlowProvider,
   ReactFlowInstance,
   Node,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from "reactflow";
+import "reactflow/dist/style.css";
 
-import { useCanvasStore } from '../../stores/useCanvasStore';
-import { ApiGatewayNode } from './nodes/ApiGatewayNode';
-import { LoadBalancerNode } from './nodes/LoadBalancerNode';
-import { MicroserviceNode } from './nodes/MicroserviceNode';
-import { DatabaseNode } from './nodes/DatabaseNode';
-import { AnimatedEdge } from './edges/AnimatedEdge';
-import { CustomNodeData } from '../../types/canvas';
+import { useCanvasStore } from "../../stores/useCanvasStore";
+import { ApiGatewayNode } from "./nodes/ApiGatewayNode";
+import { LoadBalancerNode } from "./nodes/LoadBalancerNode";
+import { MicroserviceNode } from "./nodes/MicroserviceNode";
+import { DatabaseNode } from "./nodes/DatabaseNode";
+import { AnimatedEdge } from "./edges/AnimatedEdge";
+import { CustomNodeData } from "../../types/canvas";
 
 const nodeTypes = {
-  'api-gateway': ApiGatewayNode,
-  'load-balancer': LoadBalancerNode,
+  "api-gateway": ApiGatewayNode,
+  "load-balancer": LoadBalancerNode,
   microservice: MicroserviceNode,
   database: DatabaseNode,
   postgresql: DatabaseNode,
@@ -31,10 +31,10 @@ const nodeTypes = {
   kafka: MicroserviceNode,
   rabbitmq: MicroserviceNode,
   cdn: ApiGatewayNode,
-  'authentication-service': ApiGatewayNode,
-  'notification-service': MicroserviceNode,
-  'search-service': MicroserviceNode,
-  'object-storage': DatabaseNode,
+  "authentication-service": ApiGatewayNode,
+  "notification-service": MicroserviceNode,
+  "search-service": MicroserviceNode,
+  "object-storage": DatabaseNode,
 };
 
 const edgeTypes = {
@@ -43,7 +43,8 @@ const edgeTypes = {
 
 export const FlowCanvasContent: React.FC = () => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
+  const [reactFlowInstance, setReactFlowInstance] =
+    React.useState<ReactFlowInstance | null>(null);
 
   const {
     nodes,
@@ -57,7 +58,7 @@ export const FlowCanvasContent: React.FC = () => {
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.dropEffect = "move";
   }, []);
 
   const onDrop = useCallback(
@@ -67,8 +68,8 @@ export const FlowCanvasContent: React.FC = () => {
       if (!reactFlowWrapper.current || !reactFlowInstance) return;
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData('application/reactflow/type');
-      const label = event.dataTransfer.getData('application/reactflow/label');
+      const type = event.dataTransfer.getData("application/reactflow/type");
+      const label = event.dataTransfer.getData("application/reactflow/label");
 
       if (!type) return;
 
@@ -84,7 +85,7 @@ export const FlowCanvasContent: React.FC = () => {
         data: {
           label,
           type,
-          status: 'HEALTHY',
+          status: "HEALTHY",
         },
       };
 

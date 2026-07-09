@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Handle, Position, NodeProps } from 'reactflow';
-import { LucideIcon, AlertTriangle, Activity } from 'lucide-react';
-import { cn } from '../../../lib/cn';
-import { CustomNodeData } from '../../../types/canvas';
+import React from "react";
+import { Handle, Position, NodeProps } from "reactflow";
+import { LucideIcon, AlertTriangle, Activity } from "lucide-react";
+import { cn } from "../../../lib/cn";
+import { CustomNodeData } from "../../../types/canvas";
 
 interface BaseCustomNodeProps extends NodeProps<CustomNodeData> {
   icon: LucideIcon;
@@ -19,18 +19,18 @@ export const BaseCustomNode: React.FC<BaseCustomNodeProps> = ({
   colorClass,
   borderColorClass,
 }) => {
-  const isFailed = data.status === 'FAILED';
-  const isWarning = data.status === 'WARNING';
-  const isCritical = data.status === 'CRITICAL';
+  const isFailed = data.status === "FAILED";
+  const isWarning = data.status === "WARNING";
+  const isCritical = data.status === "CRITICAL";
   const isBottleneck = data.isBottleneck;
 
   return (
     <div
       className={cn(
-        'relative min-w-[180px] rounded-xl p-3.5 bg-slate-900/90 backdrop-blur-md border transition-all duration-300 shadow-xl select-none',
-        selected ? 'border-cyan-400 ring-2 ring-cyan-400/20' : borderColorClass,
-        isBottleneck && 'animate-pulse ring-2 ring-rose-500/50 border-rose-500',
-        isFailed && 'border-rose-600/80 bg-rose-950/20',
+        "relative min-w-[180px] rounded-xl p-3.5 bg-slate-900/90 backdrop-blur-md border transition-all duration-300 shadow-xl select-none",
+        selected ? "border-cyan-400 ring-2 ring-cyan-400/20" : borderColorClass,
+        isBottleneck && "animate-pulse ring-2 ring-rose-500/50 border-rose-500",
+        isFailed && "border-rose-600/80 bg-rose-950/20",
       )}
     >
       {/* Input Handle */}
@@ -45,14 +45,16 @@ export const BaseCustomNode: React.FC<BaseCustomNodeProps> = ({
         <div className="flex items-center gap-2.5">
           <div
             className={cn(
-              'w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-md',
+              "w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-md",
               colorClass,
             )}
           >
             <Icon className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-100 leading-tight">{data.label}</h4>
+            <h4 className="text-xs font-bold text-slate-100 leading-tight">
+              {data.label}
+            </h4>
             <p className="text-[10px] text-slate-400 capitalize">{data.type}</p>
           </div>
         </div>
@@ -61,11 +63,13 @@ export const BaseCustomNode: React.FC<BaseCustomNodeProps> = ({
         {data.status && (
           <span
             className={cn(
-              'w-2 h-2 rounded-full',
-              data.status === 'HEALTHY' && 'bg-emerald-400 shadow-sm shadow-emerald-400/50',
-              data.status === 'WARNING' && 'bg-amber-400 shadow-sm shadow-amber-400/50',
-              data.status === 'CRITICAL' && 'bg-rose-400 animate-ping',
-              data.status === 'FAILED' && 'bg-rose-600',
+              "w-2 h-2 rounded-full",
+              data.status === "HEALTHY" &&
+                "bg-emerald-400 shadow-sm shadow-emerald-400/50",
+              data.status === "WARNING" &&
+                "bg-amber-400 shadow-sm shadow-amber-400/50",
+              data.status === "CRITICAL" && "bg-rose-400 animate-ping",
+              data.status === "FAILED" && "bg-rose-600",
             )}
           />
         )}
@@ -85,13 +89,15 @@ export const BaseCustomNode: React.FC<BaseCustomNodeProps> = ({
           <div>
             <span className="text-slate-500 block">Latency</span>
             <span className="font-mono font-semibold text-cyan-400">
-              {data.latencyMs ? `${data.latencyMs}ms` : '0ms'}
+              {data.latencyMs ? `${data.latencyMs}ms` : "0ms"}
             </span>
           </div>
           <div>
             <span className="text-slate-500 block">Throughput</span>
             <span className="font-mono font-semibold text-violet-400">
-              {data.throughputRps ? `${Math.round(data.throughputRps)} rps` : '0 rps'}
+              {data.throughputRps
+                ? `${Math.round(data.throughputRps)} rps`
+                : "0 rps"}
             </span>
           </div>
         </div>

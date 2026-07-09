@@ -1,4 +1,4 @@
-export type FailureType = 'DOWN' | 'DEGRADED' | 'HIGH_LATENCY';
+export type FailureType = "DOWN" | "DEGRADED" | "HIGH_LATENCY";
 
 export interface SimulationConfig {
   rps: number;
@@ -11,7 +11,7 @@ export interface SimulationResultNode {
   id?: string;
   nodeId: string;
   nodeType: string;
-  status: 'HEALTHY' | 'WARNING' | 'CRITICAL' | 'FAILED';
+  status: "HEALTHY" | "WARNING" | "CRITICAL" | "FAILED";
   latencyMs: number;
   throughputRps: number;
   errorRate: number;
@@ -24,7 +24,7 @@ export interface SimulationRun {
   id: string;
   projectId: string;
   config: SimulationConfig;
-  status: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
+  status: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
   createdAt: string;
   completedAt?: string;
   results: SimulationResultNode[];

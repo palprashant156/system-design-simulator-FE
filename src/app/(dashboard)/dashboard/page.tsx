@@ -1,20 +1,24 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Topbar } from '../../../components/layout/Topbar';
-import { ProjectCard } from '../../../components/layout/ProjectCard';
-import { useProjects, useCreateProject, useDeleteProject } from '../../../hooks/useProject';
-import { Plus, Search, Layers, RefreshCw, Cpu } from 'lucide-react';
+import React, { useState } from "react";
+import { Topbar } from "../../../components/layout/Topbar";
+import { ProjectCard } from "../../../components/layout/ProjectCard";
+import {
+  useProjects,
+  useCreateProject,
+  useDeleteProject,
+} from "../../../hooks/useProject";
+import { Plus, Search, Layers, RefreshCw, Cpu } from "lucide-react";
 
 export default function DashboardPage() {
   const { data: projects = [], isLoading } = useProjects();
   const createProjectMutation = useCreateProject();
   const deleteProjectMutation = useDeleteProject();
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const filteredProjects = projects.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase()),
@@ -25,14 +29,17 @@ export default function DashboardPage() {
     if (!name.trim()) return;
 
     await createProjectMutation.mutateAsync({ name, description });
-    setName('');
-    setDescription('');
+    setName("");
+    setDescription("");
     setIsModalOpen(false);
   };
 
   return (
     <div className="flex-1 flex flex-col h-full bg-slate-950 overflow-y-auto">
-      <Topbar title="Project Dashboard" subtitle="Manage and simulate your system architectures" />
+      <Topbar
+        title="Project Dashboard"
+        subtitle="Manage and simulate your system architectures"
+      />
 
       <div className="p-8 max-w-7xl w-full mx-auto space-y-8">
         {/* Banner */}
@@ -42,7 +49,9 @@ export default function DashboardPage() {
               Distributed Systems Architecture Workbench
             </h1>
             <p className="text-xs text-slate-300 leading-relaxed mb-6">
-              Visually assemble high-throughput microservices, load balancers, caching layers, and database clusters. Simulate real-world traffic patterns and chaos failure scenarios.
+              Visually assemble high-throughput microservices, load balancers,
+              caching layers, and database clusters. Simulate real-world traffic
+              patterns and chaos failure scenarios.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -87,8 +96,13 @@ export default function DashboardPage() {
         ) : (
           <div className="py-20 text-center bg-slate-900/30 border border-slate-800/80 rounded-2xl p-8">
             <Cpu className="w-10 h-10 mx-auto text-slate-600 mb-3" />
-            <h3 className="text-sm font-semibold text-slate-300">No architecture projects found</h3>
-            <p className="text-xs text-slate-500 mt-1 mb-4">Create your first system design project or clone a template to get started.</p>
+            <h3 className="text-sm font-semibold text-slate-300">
+              No architecture projects found
+            </h3>
+            <p className="text-xs text-slate-500 mt-1 mb-4">
+              Create your first system design project or clone a template to get
+              started.
+            </p>
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs inline-flex items-center gap-2 border border-slate-700"
@@ -104,10 +118,14 @@ export default function DashboardPage() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
-            <h3 className="text-sm font-bold text-slate-100">Create Architecture Project</h3>
+            <h3 className="text-sm font-bold text-slate-100">
+              Create Architecture Project
+            </h3>
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Project Name</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1">
+                  Project Name
+                </label>
                 <input
                   type="text"
                   required
@@ -119,7 +137,9 @@ export default function DashboardPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Description</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1">
+                  Description
+                </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -142,7 +162,9 @@ export default function DashboardPage() {
                   disabled={createProjectMutation.isPending}
                   className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold shadow-md shadow-cyan-500/20"
                 >
-                  {createProjectMutation.isPending ? 'Creating...' : 'Create Project'}
+                  {createProjectMutation.isPending
+                    ? "Creating..."
+                    : "Create Project"}
                 </button>
               </div>
             </form>

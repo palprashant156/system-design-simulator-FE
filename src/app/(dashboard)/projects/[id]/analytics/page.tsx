@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { Topbar } from '../../../../../components/layout/Topbar';
-import { LatencyTrend } from '../../../../../components/analytics/LatencyTrend';
-import { ThroughputChart } from '../../../../../components/analytics/ThroughputChart';
-import { useProject } from '../../../../../hooks/useProject';
-import { api } from '../../../../../lib/api';
-import { AnalyticsTrendsResponse } from '../../../../../types/api';
-import { BarChart3, RefreshCw, AlertTriangle } from 'lucide-react';
+import React from "react";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { Topbar } from "../../../../../components/layout/Topbar";
+import { LatencyTrend } from "../../../../../components/analytics/LatencyTrend";
+import { ThroughputChart } from "../../../../../components/analytics/ThroughputChart";
+import { useProject } from "../../../../../hooks/useProject";
+import { api } from "../../../../../lib/api";
+import { AnalyticsTrendsResponse } from "../../../../../types/api";
+import { BarChart3, RefreshCw, AlertTriangle } from "lucide-react";
 
 export default function AnalyticsDashboardPage() {
   const params = useParams();
@@ -18,7 +18,7 @@ export default function AnalyticsDashboardPage() {
   const { data: project } = useProject(projectId);
 
   const { data: analytics, isLoading } = useQuery<AnalyticsTrendsResponse>({
-    queryKey: ['analyticsTrends', projectId],
+    queryKey: ["analyticsTrends", projectId],
     queryFn: async (): Promise<any> => {
       return api.get(`/analytics/${projectId}/trends`);
     },
@@ -31,7 +31,7 @@ export default function AnalyticsDashboardPage() {
   return (
     <div className="flex-1 flex flex-col h-full bg-slate-950 overflow-y-auto">
       <Topbar
-        title={`${project?.name || 'Project'} — Analytics Dashboard`}
+        title={`${project?.name || "Project"} — Analytics Dashboard`}
         subtitle="Historical latency, throughput metrics, and bottleneck frequency analysis"
       />
 
@@ -65,8 +65,12 @@ export default function AnalyticsDashboardPage() {
                     className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between text-xs"
                   >
                     <div>
-                      <span className="font-mono text-cyan-400 font-semibold block">{nodeId}</span>
-                      <span className="text-[10px] text-slate-500 capitalize">{item.nodeType}</span>
+                      <span className="font-mono text-cyan-400 font-semibold block">
+                        {nodeId}
+                      </span>
+                      <span className="text-[10px] text-slate-500 capitalize">
+                        {item.nodeType}
+                      </span>
                     </div>
                     <span className="px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 font-bold border border-rose-500/30">
                       {item.count} Bottlenecks
@@ -79,8 +83,13 @@ export default function AnalyticsDashboardPage() {
         ) : (
           <div className="py-20 text-center bg-slate-900/30 border border-slate-800 rounded-2xl p-8">
             <BarChart3 className="w-10 h-10 mx-auto text-slate-600 mb-3" />
-            <h3 className="text-sm font-semibold text-slate-300">No simulation data recorded</h3>
-            <p className="text-xs text-slate-500 mt-1">Run simulations on the Workbench tab to generate analytics trend lines.</p>
+            <h3 className="text-sm font-semibold text-slate-300">
+              No simulation data recorded
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              Run simulations on the Workbench tab to generate analytics trend
+              lines.
+            </p>
           </div>
         )}
       </div>

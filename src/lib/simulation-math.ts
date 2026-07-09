@@ -3,8 +3,8 @@
  */
 export const estimateBaselineLatency = (nodeType: string): number => {
   const baselineMap: Record<string, number> = {
-    'api-gateway': 2.0,
-    'load-balancer': 1.0,
+    "api-gateway": 2.0,
+    "load-balancer": 1.0,
     microservice: 8.0,
     database: 15.0,
     postgresql: 12.0,
@@ -14,10 +14,10 @@ export const estimateBaselineLatency = (nodeType: string): number => {
     kafka: 4.0,
     rabbitmq: 5.0,
     cdn: 1.5,
-    'authentication-service': 6.0,
-    'notification-service': 10.0,
-    'search-service': 18.0,
-    'object-storage': 25.0,
+    "authentication-service": 6.0,
+    "notification-service": 10.0,
+    "search-service": 18.0,
+    "object-storage": 25.0,
   };
 
   return baselineMap[nodeType] || 5.0;

@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 import {
   Node,
   Edge,
@@ -9,8 +9,8 @@ import {
   applyEdgeChanges,
   addEdge,
   Connection,
-} from 'reactflow';
-import { CustomNodeData } from '../types/canvas';
+} from "reactflow";
+import { CustomNodeData } from "../types/canvas";
 
 interface CanvasState {
   nodes: Node<CustomNodeData>[];
@@ -52,7 +52,7 @@ export const useCanvasStore = create<CanvasState>((set, get) => ({
       edges: addEdge(
         {
           ...connection,
-          type: 'animatedEdge',
+          type: "animatedEdge",
           animated: true,
         },
         get().edges,

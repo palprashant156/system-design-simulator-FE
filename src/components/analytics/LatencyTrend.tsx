@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -9,8 +9,8 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-} from 'recharts';
-import { AnalyticsTrendPoint } from '../../types/api';
+} from "recharts";
+import { AnalyticsTrendPoint } from "../../types/api";
 
 interface LatencyTrendProps {
   data: AnalyticsTrendPoint[];
@@ -21,7 +21,10 @@ export const LatencyTrend: React.FC<LatencyTrendProps> = ({ data }) => {
     name: `Run #${idx + 1}`,
     avgLatency: item.avgLatencyMs,
     maxLatency: item.maxLatencyMs,
-    time: new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    time: new Date(item.timestamp).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
   }));
 
   return (
@@ -31,17 +34,25 @@ export const LatencyTrend: React.FC<LatencyTrendProps> = ({ data }) => {
       </h4>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={formattedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <LineChart
+            data={formattedData}
+            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-            <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
+            <XAxis
+              dataKey="name"
+              stroke="#64748b"
+              fontSize={11}
+              tickLine={false}
+            />
             <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#0f172a',
-                borderColor: '#334155',
-                borderRadius: '8px',
-                fontSize: '12px',
-                color: '#f8fafc',
+                backgroundColor: "#0f172a",
+                borderColor: "#334155",
+                borderRadius: "8px",
+                fontSize: "12px",
+                color: "#f8fafc",
               }}
             />
             <Line
@@ -50,7 +61,7 @@ export const LatencyTrend: React.FC<LatencyTrendProps> = ({ data }) => {
               name="Avg Latency (ms)"
               stroke="#06b6d4"
               strokeWidth={2}
-              dot={{ r: 4, fill: '#06b6d4' }}
+              dot={{ r: 4, fill: "#06b6d4" }}
             />
             <Line
               type="monotone"
@@ -58,7 +69,7 @@ export const LatencyTrend: React.FC<LatencyTrendProps> = ({ data }) => {
               name="Max Latency (ms)"
               stroke="#f43f5e"
               strokeWidth={2}
-              dot={{ r: 4, fill: '#f43f5e' }}
+              dot={{ r: 4, fill: "#f43f5e" }}
             />
           </LineChart>
         </ResponsiveContainer>

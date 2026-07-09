@@ -1,5 +1,9 @@
-import { create } from 'zustand';
-import { SimulationConfig, SimulationResultNode, FailureType } from '../types/simulation';
+import { create } from "zustand";
+import {
+  SimulationConfig,
+  SimulationResultNode,
+  FailureType,
+} from "../types/simulation";
 
 interface SimulationState {
   config: SimulationConfig;

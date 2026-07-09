@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { NodeProps } from 'reactflow';
-import { Database } from 'lucide-react';
-import { BaseCustomNode } from './BaseCustomNode';
-import { CustomNodeData } from '../../../types/canvas';
+import React from "react";
+import { NodeProps } from "reactflow";
+import { Database } from "lucide-react";
+import { BaseCustomNode } from "./BaseCustomNode";
+import { CustomNodeData } from "../../../types/canvas";
 
 export const DatabaseNode: React.FC<NodeProps<CustomNodeData>> = (props) => {
   return (

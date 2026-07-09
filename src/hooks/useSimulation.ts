@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../lib/api';
-import { getSocket } from '../lib/socket';
-import { useSimulationStore } from '../stores/useSimulationStore';
-import { useCanvasStore } from '../stores/useCanvasStore';
-import { SimulationConfig, SimulationRun } from '../types/simulation';
+import { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api } from "../lib/api";
+import { getSocket } from "../lib/socket";
+import { useSimulationStore } from "../stores/useSimulationStore";
+import { useCanvasStore } from "../stores/useCanvasStore";
+import { SimulationConfig, SimulationRun } from "../types/simulation";
 
 export const useSimulation = (projectId: string) => {
   const queryClient = useQueryClient();
-  const { updateLiveMetric, setIsRunning, setActiveSimulationId } = useSimulationStore();
+  const { updateLiveMetric, setIsRunning, setActiveSimulationId } =
+    useSimulationStore();
   const { updateNodeData } = useCanvasStore();
 
   // Socket.IO real-time event listener setup
@@ -17,16 +18,16 @@ export const useSimulation = (projectId: string) => {
 
     const socket = getSocket();
 
-    socket.emit('join:project', projectId);
+    socket.emit("join:project", projectId);
 
-    socket.on('simulation:started', (data) => {
+    socket.on("simulation:started", (data) => {
       setIsRunning(true);
       if (data.simulationId) {
         setActiveSimulationId(data.simulationId);
       }
     });
 
-    socket.on('simulation:node-update', (data) => {
+    socket.on("simulation:node-update", (data) => {
       if (data.nodeId) {
         updateNodeData(data.nodeId, {
           status: data.status,
@@ -35,7 +36,7 @@ export const useSimulation = (projectId: string) => {
       }
     });
 
-    socket.on('simulation:metrics', (metric) => {
+    socket.on("simulation:metrics", (metric) => {
       updateLiveMetric(metric);
       if (metric.nodeId) {
         updateNodeData(metric.nodeId, {
@@ -50,19 +51,28 @@ export const useSimulation = (projectId: string) => {
       }
     });
 
-    socket.on('simulation:completed', (data) => {
+    socket.on("simulation:completed", (data) => {
       setIsRunning(false);
-      queryClient.invalidateQueries({ queryKey: ['simulationHistory', projectId] });
+      queryClient.invalidateQueries({
+        queryKey: ["simulationHistory", projectId],
+      });
     });
 
     return () => {
-      socket.emit('leave:project', projectId);
-      socket.off('simulation:started');
-      socket.off('simulation:node-update');
-      socket.off('simulation:metrics');
-      socket.off('simulation:completed');
+      socket.emit("leave:project", projectId);
+      socket.off("simulation:started");
+      socket.off("simulation:node-update");
+      socket.off("simulation:metrics");
+      socket.off("simulation:completed");
     };
-  }, [projectId, updateLiveMetric, setIsRunning, setActiveSimulationId, updateNodeData, queryClient]);
+  }, [
+    projectId,
+    updateLiveMetric,
+    setIsRunning,
+    setActiveSimulationId,
+    updateNodeData,
+    queryClient,
+  ]);
 
   const runSimulationMutation = useMutation({
     mutationFn: async (config: SimulationConfig): Promise<any> => {
@@ -71,7 +81,7 @@ export const useSimulation = (projectId: string) => {
   });
 
   const historyQuery = useQuery<SimulationRun[]>({
-    queryKey: ['simulationHistory', projectId],
+    queryKey: ["simulationHistory", projectId],
     queryFn: async (): Promise<any> => {
       return api.get(`/simulation/${projectId}/history`);
     },

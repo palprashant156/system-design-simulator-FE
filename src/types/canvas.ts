@@ -1,12 +1,7 @@
-import { Node, Edge } from 'reactflow';
+import { Node, Edge } from "reactflow";
 
 export type ComponentCategory =
-  | 'compute'
-  | 'storage'
-  | 'network'
-  | 'messaging'
-  | 'cache'
-  | 'service';
+  "compute" | "storage" | "network" | "messaging" | "cache" | "service";
 
 export interface ComponentDefinition {
   type: string;
@@ -20,7 +15,7 @@ export interface ComponentDefinition {
 export interface CustomNodeData {
   label: string;
   type: string;
-  status?: 'HEALTHY' | 'WARNING' | 'CRITICAL' | 'FAILED';
+  status?: "HEALTHY" | "WARNING" | "CRITICAL" | "FAILED";
   isBottleneck?: boolean;
   latencyMs?: number;
   throughputRps?: number;

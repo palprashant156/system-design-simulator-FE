@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Play, RefreshCw, AlertOctagon, Flame, Zap } from 'lucide-react';
-import { useSimulationStore } from '../../stores/useSimulationStore';
-import { useCanvasStore } from '../../stores/useCanvasStore';
-import { FailureType } from '../../types/simulation';
+import React from "react";
+import { Play, RefreshCw, AlertOctagon, Flame, Zap } from "lucide-react";
+import { useSimulationStore } from "../../stores/useSimulationStore";
+import { useCanvasStore } from "../../stores/useCanvasStore";
+import { FailureType } from "../../types/simulation";
 
 interface SimulationPanelProps {
   onRunSimulation: (config: any) => void;
@@ -19,7 +19,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
   const { nodes, selectedNodeId } = useCanvasStore();
 
   const selectedNode = nodes.find((n) => n.id === selectedNodeId);
-  const selectedNodeFailure = selectedNodeId ? config.failures?.[selectedNodeId] : null;
+  const selectedNodeFailure = selectedNodeId
+    ? config.failures?.[selectedNodeId]
+    : null;
 
   const handleFailureSelect = (type: FailureType | null) => {
     if (selectedNodeId) {
@@ -32,7 +34,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
       <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <Zap className="w-4 h-4 text-cyan-400 fill-current" />
-          <h3 className="text-sm font-bold text-slate-100">Simulation Controls</h3>
+          <h3 className="text-sm font-bold text-slate-100">
+            Simulation Controls
+          </h3>
         </div>
         {isRunning && (
           <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-semibold border border-cyan-500/30">
@@ -46,8 +50,12 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
       <div className="space-y-4 mb-6">
         <div>
           <div className="flex items-center justify-between text-xs mb-1.5">
-            <span className="text-slate-300 font-medium">Target Traffic (RPS)</span>
-            <span className="font-mono text-cyan-400 font-semibold">{config.rps} rps</span>
+            <span className="text-slate-300 font-medium">
+              Target Traffic (RPS)
+            </span>
+            <span className="font-mono text-cyan-400 font-semibold">
+              {config.rps} rps
+            </span>
           </div>
           <input
             type="range"
@@ -63,7 +71,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
         <div>
           <div className="flex items-center justify-between text-xs mb-1.5">
             <span className="text-slate-300 font-medium">Concurrent Users</span>
-            <span className="font-mono text-violet-400 font-semibold">{config.concurrentUsers}</span>
+            <span className="font-mono text-violet-400 font-semibold">
+              {config.concurrentUsers}
+            </span>
           </div>
           <input
             type="range"
@@ -71,7 +81,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
             max="5000"
             step="10"
             value={config.concurrentUsers}
-            onChange={(e) => setConfig({ concurrentUsers: parseInt(e.target.value, 10) })}
+            onChange={(e) =>
+              setConfig({ concurrentUsers: parseInt(e.target.value, 10) })
+            }
             className="w-full accent-violet-500 bg-slate-800 rounded-lg h-2 cursor-pointer"
           />
         </div>
@@ -79,7 +91,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
         <div>
           <div className="flex items-center justify-between text-xs mb-1.5">
             <span className="text-slate-300 font-medium">Test Duration</span>
-            <span className="font-mono text-emerald-400 font-semibold">{config.duration} sec</span>
+            <span className="font-mono text-emerald-400 font-semibold">
+              {config.duration} sec
+            </span>
           </div>
           <input
             type="range"
@@ -87,7 +101,9 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
             max="60"
             step="5"
             value={config.duration}
-            onChange={(e) => setConfig({ duration: parseInt(e.target.value, 10) })}
+            onChange={(e) =>
+              setConfig({ duration: parseInt(e.target.value, 10) })
+            }
             className="w-full accent-emerald-500 bg-slate-800 rounded-lg h-2 cursor-pointer"
           />
         </div>
@@ -116,45 +132,53 @@ export const SimulationPanel: React.FC<SimulationPanelProps> = ({
       <div className="pt-4 border-t border-slate-800 flex-1">
         <div className="flex items-center gap-2 mb-3">
           <Flame className="w-4 h-4 text-amber-400" />
-          <h4 className="text-xs font-bold text-slate-200">Chaos Engineering</h4>
+          <h4 className="text-xs font-bold text-slate-200">
+            Chaos Engineering
+          </h4>
         </div>
 
         {selectedNode ? (
           <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
             <div className="text-xs">
-              <span className="text-slate-400 block text-[10px]">Selected Component</span>
-              <span className="font-semibold text-slate-100">{selectedNode.data.label}</span>
+              <span className="text-slate-400 block text-[10px]">
+                Selected Component
+              </span>
+              <span className="font-semibold text-slate-100">
+                {selectedNode.data.label}
+              </span>
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[10px] text-slate-400 block">Inject Artificial Failure</span>
+              <span className="text-[10px] text-slate-400 block">
+                Inject Artificial Failure
+              </span>
               <div className="grid grid-cols-2 gap-1.5">
                 <button
-                  onClick={() => handleFailureSelect('DOWN')}
+                  onClick={() => handleFailureSelect("DOWN")}
                   className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all border ${
-                    selectedNodeFailure === 'DOWN'
-                      ? 'bg-rose-500/20 text-rose-400 border-rose-500/50'
-                      : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200'
+                    selectedNodeFailure === "DOWN"
+                      ? "bg-rose-500/20 text-rose-400 border-rose-500/50"
+                      : "bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200"
                   }`}
                 >
                   Hard Down
                 </button>
                 <button
-                  onClick={() => handleFailureSelect('DEGRADED')}
+                  onClick={() => handleFailureSelect("DEGRADED")}
                   className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all border ${
-                    selectedNodeFailure === 'DEGRADED'
-                      ? 'bg-amber-500/20 text-amber-400 border-amber-500/50'
-                      : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200'
+                    selectedNodeFailure === "DEGRADED"
+                      ? "bg-amber-500/20 text-amber-400 border-amber-500/50"
+                      : "bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200"
                   }`}
                 >
                   Degraded
                 </button>
                 <button
-                  onClick={() => handleFailureSelect('HIGH_LATENCY')}
+                  onClick={() => handleFailureSelect("HIGH_LATENCY")}
                   className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all border ${
-                    selectedNodeFailure === 'HIGH_LATENCY'
-                      ? 'bg-purple-500/20 text-purple-400 border-purple-500/50'
-                      : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200'
+                    selectedNodeFailure === "HIGH_LATENCY"
+                      ? "bg-purple-500/20 text-purple-400 border-purple-500/50"
+                      : "bg-slate-800/80 text-slate-400 border-slate-700 hover:text-slate-200"
                   }`}
                 >
                   +500ms Delay

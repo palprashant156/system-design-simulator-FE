@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Save, Play, RefreshCw, Layers } from 'lucide-react';
+import React from "react";
+import { Save, Play, RefreshCw, Layers } from "lucide-react";
 
 interface TopbarProps {
   title?: string;
@@ -12,7 +12,7 @@ interface TopbarProps {
 }
 
 export const Topbar: React.FC<TopbarProps> = ({
-  title = 'System Design Simulator',
+  title = "System Design Simulator",
   subtitle,
   onSave,
   onSimulate,
@@ -37,7 +37,7 @@ export const Topbar: React.FC<TopbarProps> = ({
             ) : (
               <Save className="w-3.5 h-3.5 text-cyan-400" />
             )}
-            <span>{isSaving ? 'Saving...' : 'Save Architecture'}</span>
+            <span>{isSaving ? "Saving..." : "Save Architecture"}</span>
           </button>
         )}
 

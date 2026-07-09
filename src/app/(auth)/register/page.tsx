@@ -1,33 +1,37 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Zap, Lock, Mail, User as UserIcon, ArrowRight } from 'lucide-react';
-import { api } from '../../../lib/api';
-import { useAuthStore } from '../../../stores/useAuthStore';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Zap, Lock, Mail, User as UserIcon, ArrowRight } from "lucide-react";
+import { api } from "../../../lib/api";
+import { useAuthStore } from "../../../stores/useAuthStore";
 
 export default function RegisterPage() {
   const router = useRouter();
   const setAuth = useAuthStore((s) => s.setAuth);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res: any = await api.post('/auth/register', { name, email, password });
+      const res: any = await api.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
       setAuth(res.user, res.accessToken);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || 'Registration failed. Please try again.');
+      setError(err.message || "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -46,7 +50,9 @@ export default function RegisterPage() {
             <Zap className="w-6 h-6 fill-current" />
           </div>
           <h1 className="text-xl font-bold text-slate-100">Create Account</h1>
-          <p className="text-xs text-slate-400 mt-1">Start simulating scalable distributed architectures</p>
+          <p className="text-xs text-slate-400 mt-1">
+            Start simulating scalable distributed architectures
+          </p>
         </div>
 
         {error && (
@@ -57,7 +63,9 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Full Name</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              Full Name
+            </label>
             <div className="relative">
               <UserIcon className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -72,7 +80,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              Email Address
+            </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -87,7 +97,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              Password
+            </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -106,14 +118,17 @@ export default function RegisterPage() {
             disabled={loading}
             className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all disabled:opacity-50 mt-2"
           >
-            <span>{loading ? 'Creating Account...' : 'Get Started'}</span>
+            <span>{loading ? "Creating Account..." : "Get Started"}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
         <p className="text-center text-xs text-slate-400 mt-6">
-          Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-cyan-400 hover:underline">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="font-semibold text-cyan-400 hover:underline"
+          >
             Sign In
           </Link>
         </p>

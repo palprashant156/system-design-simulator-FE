@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Topbar } from '../../../../components/layout/Topbar';
-import { NodePalette } from '../../../../components/canvas/NodePalette';
-import { FlowCanvas } from '../../../../components/canvas/FlowCanvas';
-import { useProject } from '../../../../hooks/useProject';
-import { useDiagram, useSaveDiagram } from '../../../../hooks/useDiagram';
-import { useCanvasStore } from '../../../../stores/useCanvasStore';
+import React, { useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Topbar } from "../../../../components/layout/Topbar";
+import { NodePalette } from "../../../../components/canvas/NodePalette";
+import { FlowCanvas } from "../../../../components/canvas/FlowCanvas";
+import { useProject } from "../../../../hooks/useProject";
+import { useDiagram, useSaveDiagram } from "../../../../hooks/useDiagram";
+import { useCanvasStore } from "../../../../stores/useCanvasStore";
 
 export default function CanvasEditorPage() {
   const params = useParams();
@@ -40,7 +40,7 @@ export default function CanvasEditorPage() {
             source: e.source,
             target: e.target,
             label: e.label || undefined,
-            type: 'animatedEdge',
+            type: "animatedEdge",
             animated: true,
           })),
         );
@@ -62,7 +62,7 @@ export default function CanvasEditorPage() {
       id: e.id,
       source: e.source,
       target: e.target,
-      label: typeof e.label === 'string' ? e.label : undefined,
+      label: typeof e.label === "string" ? e.label : undefined,
     }));
 
     await saveDiagramMutation.mutateAsync({
@@ -76,14 +76,14 @@ export default function CanvasEditorPage() {
       await handleSave();
       router.push(`/projects/${projectId}/simulate`);
     } catch (err) {
-      console.error('Failed to save diagram before simulation:', err);
+      console.error("Failed to save diagram before simulation:", err);
     }
   };
 
   return (
     <div className="flex-1 flex flex-col h-full bg-slate-950 overflow-hidden">
       <Topbar
-        title={project?.name || 'Architecture Canvas'}
+        title={project?.name || "Architecture Canvas"}
         subtitle="Drag & drop infrastructure components onto the canvas to construct your system diagram"
         onSave={handleSave}
         isSaving={saveDiagramMutation.isPending}

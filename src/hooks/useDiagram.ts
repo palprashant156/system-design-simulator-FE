@@ -1,9 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { api } from '../lib/api';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { api } from "../lib/api";
 
 export const useDiagram = (projectId: string) => {
   return useQuery({
-    queryKey: ['diagram', projectId],
+    queryKey: ["diagram", projectId],
     queryFn: async (): Promise<any> => {
       return api.get(`/diagrams/${projectId}`);
     },
@@ -18,7 +18,7 @@ export const useSaveDiagram = (projectId: string) => {
       return api.post(`/diagrams/${projectId}/save`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['diagram', projectId] });
+      queryClient.invalidateQueries({ queryKey: ["diagram", projectId] });
     },
   });
 };

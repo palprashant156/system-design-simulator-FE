@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Zap, Lock, Mail, ArrowRight } from 'lucide-react';
-import { api } from '../../../lib/api';
-import { useAuthStore } from '../../../stores/useAuthStore';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Zap, Lock, Mail, ArrowRight } from "lucide-react";
+import { api } from "../../../lib/api";
+import { useAuthStore } from "../../../stores/useAuthStore";
 
 export default function LoginPage() {
   const router = useRouter();
   const setAuth = useAuthStore((s) => s.setAuth);
 
-  const [email, setEmail] = useState('demo@systemdesign.com');
-  const [password, setPassword] = useState('password123');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("demo@systemdesign.com");
+  const [password, setPassword] = useState("password123");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res: any = await api.post('/auth/login', { email, password });
+      const res: any = await api.post("/auth/login", { email, password });
       setAuth(res.user, res.accessToken);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || 'Login failed. Please check credentials.');
+      setError(err.message || "Login failed. Please check credentials.");
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,9 @@ export default function LoginPage() {
             <Zap className="w-6 h-6 fill-current" />
           </div>
           <h1 className="text-xl font-bold text-slate-100">Welcome Back</h1>
-          <p className="text-xs text-slate-400 mt-1">Sign in to your System Design Simulator workspace</p>
+          <p className="text-xs text-slate-400 mt-1">
+            Sign in to your System Design Simulator workspace
+          </p>
         </div>
 
         {error && (
@@ -56,7 +58,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              Email Address
+            </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -71,7 +75,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              Password
+            </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
@@ -90,14 +96,17 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all disabled:opacity-50 mt-2"
           >
-            <span>{loading ? 'Signing In...' : 'Sign In'}</span>
+            <span>{loading ? "Signing In..." : "Sign In"}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
         <p className="text-center text-xs text-slate-400 mt-6">
-          Don't have an account?{' '}
-          <Link href="/register" className="font-semibold text-cyan-400 hover:underline">
+          Don't have an account?{" "}
+          <Link
+            href="/register"
+            className="font-semibold text-cyan-400 hover:underline"
+          >
             Create Account
           </Link>
         </p>
